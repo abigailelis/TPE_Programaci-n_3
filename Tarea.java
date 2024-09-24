@@ -13,4 +13,41 @@ public class Tarea {
         this.critica = critica;
         this.prioridad = prioridad;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(Integer tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    public Boolean getCritica() {
+        return critica;
+    }
+
+    public void setCritica(Boolean critica) {
+        this.critica = critica;
+    }
+
+    public Integer getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(Integer prioridad) {
+        this.prioridad = prioridad;
+    }
+    
 }
