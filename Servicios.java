@@ -1,8 +1,7 @@
-package tpe;
 
 import java.util.List;
 
-import tpe.utils.CSVReader;
+import utils.CSVReader;
 
 /**
  * NO modificar la interfaz de esta clase ni sus métodos públicos.
@@ -11,14 +10,6 @@ import tpe.utils.CSVReader;
  */
 public class Servicios {
 
-	/*atributos posibles
-
-		list criticas y no criticas
-
-		hash para realizar la busqueda individual
-
-
-	*/
 	//private componentes donde se van a guardar las tareas y los servicios
 
 	//Una estructura de guardado en memoria y otras de acceso.. (TODAS APUNTAN AL MISMO OBJETO)
@@ -36,26 +27,23 @@ public class Servicios {
 	
 	/*
      * Expresar la complejidad temporal del servicio 1.
-     * Encontrar la tarea con id dado.
-     * utilizar hash.
      */
-	public Tarea servicio1(String ID) {	}
+	public Tarea servicio1(String ID) {
+		return null;
+	}
     
     /*
      * Expresar la complejidad temporal del servicio 2.
-     * lista de tareas que cumplen con esa condicion
      */
-	public List<Tarea> servicio2(boolean esCritica) {}
+	public List<Tarea> servicio2(boolean esCritica) {
+		return null;
+	}
 
     /*
      * Expresar la complejidad temporal del servicio 3.
-     * lisat de tareas que tiene prioridad entre 2 valores
-     * posiblemente una lista si es que es la mejor para trabajar entre rangos.
      */
 	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
-		//usar un arbol, si se repiten prioridades hacemos una lista que las contenga en ese orden
+		return null;
 	}
-
-	//entre
 
 }
