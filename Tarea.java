@@ -3,10 +3,14 @@ public class Tarea {
     private String id;
     private String nombre;
     private Integer tiempo;
-    private Boolean ctricia;
+    private Boolean critica;
     private Integer prioridad;
 
-    public Tarea(){
-        
+    public Tarea(String id, String nombre, Integer tiempo, Boolean critica, Integer prioridad){
+        this.id = id;
+        this.nombre = nombre;
+        this.tiempo = tiempo;
+        this.critica = critica;
+        this.prioridad = prioridad;
     }
 }
