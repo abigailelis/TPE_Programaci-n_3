@@ -1,4 +1,4 @@
-package ProgramacionIII.tpe;
+package tpe;
 
 import java.util.LinkedList;
 

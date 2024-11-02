@@ -1,4 +1,4 @@
-package ProgramacionIII.tpe;
+package tpe;
 
 public class Main {
 

@@ -1,8 +1,9 @@
-package ProgramacionIII.tpe;
+package tpe;
 
 import java.util.HashMap;
+
 import java.util.LinkedList;
-import ProgramacionIII.tpe.utils.CSVReader;
+import tpe.utils.CSVReader;
 
 
 /**

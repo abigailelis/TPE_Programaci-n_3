@@ -1,7 +1,7 @@
-package ProgramacionIII.tpe.utils;
+package tpe.utils;
 
-import ProgramacionIII.tpe.Task;
-import ProgramacionIII.tpe.Tree;
+import tpe.Task;
+import tpe.Tree;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,7 +45,7 @@ public class CSVReader {
 		if(task.getCritica())
 			criticas.addFirst(task);
 		else 
-			criticas.addFirst(task);
+			noCriticas.addFirst(task);
 	}
 
 	private void addTaskTree(Task task, Tree tree){
