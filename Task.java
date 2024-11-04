@@ -57,7 +57,7 @@ public class Task {
         return  " ID: " + this.id +
                 " Nombre: " + this.nombre +
                 " Tiempo: " + this.tiempo +
-                " Critica" + this.critica +
+                " Critica: " + this.critica +
                 " Prioridad: " + this.prioridad;
     }
 }

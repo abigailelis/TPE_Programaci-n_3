@@ -71,7 +71,8 @@ public class Processor {
     }
 
     public String toString(){
-        String texto =" Tareas: ";
+        String texto= "\nProcesador: " + this.idProcesador + "\n";
+        texto = texto + " Tareas: ";
         for(Task t: this.tareas){
             texto = texto + t.toString() + " | ";
         }

@@ -14,6 +14,16 @@ public class Solution {
         this.contadorEstados = 0; // preguntar si esta bien tomarlo como 0 o -1
     }
 
+    public Solution() {
+        this.procesadores = new ArrayList<>();
+        this.tiempoEjecucion = 0;
+        this.contadorEstados = 0; // preguntar si esta bien tomarlo como 0 o -1
+    }
+
+    public boolean isEmpty() {
+        return procesadores.isEmpty();
+    }
+
     public Solution copy(){ // si agregamos atributos tenerlo en cuenta
         Solution sol = new Solution(new ArrayList<>());
         sol.setTiempoEjecucion(this.tiempoEjecucion);
@@ -22,6 +32,18 @@ public class Solution {
             sol.addProcesador(p.copy());
         }
         return sol;
+    }
+
+    public void actualizarTiempoEjecucion(Processor p) {
+        if (p.getTiempoEjecucion()>this.tiempoEjecucion){
+            this.tiempoEjecucion = p.getTiempoEjecucion();
+        }
+    }
+
+    public void actualizarTiempoEjecucion(Processor p, Task t) {
+        if (p.getTiempoEjecucion()==this.tiempoEjecucion){
+            this.tiempoEjecucion = this.tiempoEjecucion - t.getTiempo();
+        }
     }
 
     public int getContadorEstados() {
@@ -65,12 +87,12 @@ public class Solution {
     }
 
     public String toString(){
-        String texto =" Procesadores: ";
+        String texto =" Solucion Obtenida: ";
         for(Processor p: this.procesadores){
             texto = texto + p.toString() + " - ";
         }
-        texto = texto + " Tiempo de ejecucion = " + this.tiempoEjecucion;
-        texto = texto + " Contador de estados: " + this.contadorEstados;
+        texto = texto + "\nTiempo de ejecucion: " + this.tiempoEjecucion;
+        texto = texto + "\nContador de estados: " + this.contadorEstados;
         return texto;
     }
 }

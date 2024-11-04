@@ -12,7 +12,7 @@ public class Backtracking {
     private int tiempoEjecucion;//cambiar nombre patram ostrar que es el de la refrigeraciones
 
     public Backtracking(ArrayList<Processor> procesadores, LinkedList<Task> tareasCriticas, LinkedList<Task> tareasNoCriticas) {
-        this.sol = null;
+        this.sol = new Solution();
         this.procesadores = procesadores;
         this.tareasCriticas = tareasCriticas; // se puede pasar todo por el main
         this.tareas = tareasNoCriticas;//es necesario preguntar si viene vacio?
@@ -26,7 +26,8 @@ public class Backtracking {
         }else{
             this.tiempoEjecucion = tiempoEjecucion;
             Solution solParcial = new Solution(this.procesadores);
-            sol=null; //reiniciamos la variable
+            this.sol = new Solution();//reiniciamos la variable
+            asignarTareasBack(solParcial);
             return this.sol;
         }
     }
@@ -34,7 +35,7 @@ public class Backtracking {
     private void asignarTareasBack(Solution solParcial){
         solParcial.incrementarContadorEstados();
         if(tareas.isEmpty()){
-            if(this.sol == null || solParcial.getTiempoEjecucion()<sol.getTiempoEjecucion()){
+            if(this.sol.isEmpty() || solParcial.getTiempoEjecucion()<sol.getTiempoEjecucion()){
                 sol = solParcial.copy();// borrar la solucion anterior y copiar la nueva
             }
         }else{
@@ -42,14 +43,17 @@ public class Backtracking {
             Task t = tareas.getFirst();
             while(it.hasNext()){
                 Processor p = it.next();
-                if(t.getCritica() && p.getCantCriticas()<2 &&
-                        (!p.isRefrigerado() || (p.isRefrigerado() && p.getTiempoEjecucion()+t.getTiempo()<=this.tiempoEjecucion))){
-                    if(p.getTiempoEjecucion()+t.getTiempo()< this.sol.getTiempoEjecucion()){
+                if((!t.getCritica() || (t.getCritica() && p.getCantCriticas()<2)) &&
+                        (p.isRefrigerado() || (!p.isRefrigerado() && p.getTiempoEjecucion()+t.getTiempo()<=this.tiempoEjecucion))){
+                    if(this.sol.isEmpty() || (p.getTiempoEjecucion()+t.getTiempo() < this.sol.getTiempoEjecucion())){
                         p.addTask(t);
                         tareas.removeFirst();
+                        solParcial.actualizarTiempoEjecucion(p);
                         asignarTareasBack(solParcial);
+                        solParcial.actualizarTiempoEjecucion(p,t);
                         tareas.addFirst(t);
                         p.deleteTask(t);
+
                     }
                 }
             }
