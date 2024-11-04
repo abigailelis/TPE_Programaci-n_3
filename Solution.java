@@ -6,18 +6,30 @@ public class Solution {
 
     private ArrayList<Processor> procesadores;
     private int tiempoEjecucion;
+    private int contadorEstados;
 
-    public Solution() {
-        this.procesadores = new ArrayList<Processor>();
+    public Solution(ArrayList<Processor> procesadores) {
+        this.procesadores = new ArrayList<>(procesadores);
         this.tiempoEjecucion = 0;
+        this.contadorEstados = 0; // preguntar si esta bien tomarlo como 0 o -1
     }
 
     public Solution copy(){ // si agregamos atributos tenerlo en cuenta
-        Solution sol = new Solution();
-        for (Processor p : procesadores){
+        Solution sol = new Solution(new ArrayList<>());
+        sol.setTiempoEjecucion(this.tiempoEjecucion);
+        sol.setContadorEstados(this.contadorEstados);
+        for (Processor p : this.procesadores){
             sol.addProcesador(p.copy());
         }
         return sol;
+    }
+
+    public int getContadorEstados() {
+        return contadorEstados;
+    }
+
+    public void setContadorEstados(int contadorEstados) {
+        this.contadorEstados = contadorEstados;
     }
 
     public int getTiempoEjecucion() {
@@ -34,12 +46,9 @@ public class Solution {
 
     public void addProcesador(Processor p) {
         this.procesadores.add(p);
-        this.tiempoEjecucion = this.tiempoEjecucion+p.getTiempoEjecucion();
-    }
-
-    public void deleteProcesador(Processor p) {
-        this.procesadores.remove(p);
-        this.tiempoEjecucion = this.tiempoEjecucion-p.getTiempoEjecucion();
+        if(p.getTiempoEjecucion()>this.tiempoEjecucion){
+            this.tiempoEjecucion = p.getTiempoEjecucion();
+        }
     }
 
     public boolean containsTask(Task t) {
@@ -49,5 +58,19 @@ public class Solution {
             }
         }
         return false;
+    }
+
+    public void incrementarContadorEstados() {
+        this.contadorEstados++;
+    }
+
+    public String toString(){
+        String texto =" Procesadores: ";
+        for(Processor p: this.procesadores){
+            texto = texto + p.toString() + " - ";
+        }
+        texto = texto + " Tiempo de ejecucion = " + this.tiempoEjecucion;
+        texto = texto + " Contador de estados: " + this.contadorEstados;
+        return texto;
     }
 }

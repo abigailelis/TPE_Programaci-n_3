@@ -1,5 +1,6 @@
 package tpe.utils;
 
+import tpe.Processor;
 import tpe.Task;
 import tpe.Tree;
 
@@ -52,7 +53,7 @@ public class CSVReader {
 		tree.add(task.getPrioridad(), task);
 	}
 	
-	public void readProcessors(String processorPath) {
+	public void readProcessors(String processorPath, ArrayList<Processor> procesadores) {
 		
 		ArrayList<String[]> lines = this.readContent(processorPath);
 		
@@ -61,6 +62,11 @@ public class CSVReader {
 			String codigo = line[1].trim();
 			Boolean refrigerado = Boolean.parseBoolean(line[2].trim());
 			Integer anio = Integer.parseInt(line[3].trim());
+			Processor p = new Processor(refrigerado, id, codigo, anio);
+			if(!procesadores.contains(p)){
+				procesadores.add(p);
+			}
+
 		}
 		
 	}

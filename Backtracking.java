@@ -1,20 +1,22 @@
 package tpe;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Backtracking {
 
     private Solution sol;
     private ArrayList<Processor> procesadores;
-    private ArrayList<Task> tareasCriticas;
-    private ArrayList<Task> tareas;
+    private LinkedList<Task> tareasCriticas;
+    private LinkedList<Task> tareas;
     private int tiempoEjecucion;//cambiar nombre patram ostrar que es el de la refrigeraciones
 
-    public Backtracking(ArrayList<Processor> procesadores, ArrayList<Task> tareasCriticas, ArrayList<Task> tareasNoCriticas) {
+    public Backtracking(ArrayList<Processor> procesadores, LinkedList<Task> tareasCriticas, LinkedList<Task> tareasNoCriticas) {
         this.sol = null;
         this.procesadores = procesadores;
         this.tareasCriticas = tareasCriticas; // se puede pasar todo por el main
-        this.tareas = this.tareasCriticas.addAll(tareasNoCriticas);
+        this.tareas = tareasNoCriticas;//es necesario preguntar si viene vacio?
+        this.tareas.addAll(this.tareasCriticas);
         this.tiempoEjecucion = 0;
     }
 
@@ -23,38 +25,34 @@ public class Backtracking {
             return null;
         }else{
             this.tiempoEjecucion = tiempoEjecucion;
-            Solution solParcial = new Solution();
+            Solution solParcial = new Solution(this.procesadores);
             sol=null; //reiniciamos la variable
-            int index=0;
-            return asignarTareasBack(solParcial, index);
+            return this.sol;
         }
     }
 
-    private Solution asignarTareasBack(Solution solParcial, int index){
-        if(tareas.size()==index){
+    private void asignarTareasBack(Solution solParcial){
+        solParcial.incrementarContadorEstados();
+        if(tareas.isEmpty()){
             if(this.sol == null || solParcial.getTiempoEjecucion()<sol.getTiempoEjecucion()){
                 sol = solParcial.copy();// borrar la solucion anterior y copiar la nueva
-                return sol;
             }
         }else{
-            Iterator<Processor> it = solParcial.getProcesadores().iterator();
-            Task t = tareas.get(index);
+            IteratorProcesadores<Processor> it = new IteratorProcesadores<>(solParcial.getProcesadores().iterator());
+            Task t = tareas.getFirst();
             while(it.hasNext()){
                 Processor p = it.next();
                 if(t.getCritica() && p.getCantCriticas()<2 &&
                         (!p.isRefrigerado() || (p.isRefrigerado() && p.getTiempoEjecucion()+t.getTiempo()<=this.tiempoEjecucion))){
                     if(p.getTiempoEjecucion()+t.getTiempo()< this.sol.getTiempoEjecucion()){
                         p.addTask(t);
-                        return asignarTareasBack(solParcial, index+1);
+                        tareas.removeFirst();
+                        asignarTareasBack(solParcial);
+                        tareas.addFirst(t);
                         p.deleteTask(t);
                     }
                 }
-            } if(!solParcial.containsTask(t)){
-                return null;
             }
         }
-        return null;
     }
-
-
 }

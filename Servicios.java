@@ -1,5 +1,6 @@
 package tpe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ public class Servicios {
 	private final LinkedList<Task> criticalTasks;
 	private final LinkedList<Task> NonCriticalTasks;
 	private final Tree priorityTaskTree;
+	private final ArrayList<Processor> procesadores;
 
 
 	/*
@@ -32,9 +34,11 @@ public class Servicios {
 		this.criticalTasks = new LinkedList<Task>();
 		this.NonCriticalTasks = new LinkedList<Task>();
 		this.priorityTaskTree = new Tree();
+		this.procesadores=new ArrayList<>();
+
 
 		CSVReader reader = new CSVReader();
-		reader.readProcessors(pathProcesadores);
+		reader.readProcessors(pathProcesadores, this.procesadores);
 		reader.readTasks(pathTareas, this.tasksHash, this.criticalTasks, this.NonCriticalTasks, this.priorityTaskTree);
 	}
 	
@@ -67,6 +71,11 @@ public class Servicios {
      */
 	public LinkedList<Task> servicio3(int prioridadInferior, int prioridadSuperior) {
 		return this.priorityTaskTree.getElemBetween(prioridadInferior, prioridadSuperior);
+	}
+
+	public Solution asignarTareasBack(int tiempoEjecucion){
+		Backtracking back = new Backtracking(this.procesadores, this.criticalTasks, this.NonCriticalTasks);
+		return back.asignarTareasBack(tiempoEjecucion);
 	}
 
 }

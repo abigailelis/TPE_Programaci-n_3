@@ -67,6 +67,14 @@ public class Processor {
     }
 
     public int getCantCriticas() {
-        return cantCriticas;
+        return this.cantCriticas;
+    }
+
+    public String toString(){
+        String texto =" Tareas: ";
+        for(Task t: this.tareas){
+            texto = texto + t.toString() + " | ";
+        }
+        return texto;
     }
 }
